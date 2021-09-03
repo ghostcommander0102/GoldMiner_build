@@ -52,6 +52,9 @@ window.__require = function e(t, n, r) {
       },
       onDlg: function onDlg() {
         this.Info_dlg.getComponent(cc.Animation).play("layerin");
+      },
+      onVolumeChange: function onVolumeChange() {
+        Global.volume = !Global.volume;
       }
     });
     cc._RF.pop();
@@ -130,7 +133,6 @@ window.__require = function e(t, n, r) {
         return mark_arr;
       },
       startRemoveBlocks: function startRemoveBlocks() {
-        console.log(this.r_blocks);
         var t_down = [];
         for (var i = 0; i < this.node.children.length; i++) t_down[i] = {
           top: 0,
@@ -148,12 +150,9 @@ window.__require = function e(t, n, r) {
           this.node.children[this.r_blocks[i]].destroy();
           this.block_count--;
         }
-        console.log(t_down);
         for (var i = 0; i < t_down.length; i++) if (0 != t_down[i].top) {
           var t_top = this.node.children[i].getComponent(cc.Widget).top + .166 * t_down[i].top;
           var t_bottom = this.node.children[i].getComponent(cc.Widget).bottom - .166 * t_down[i].bottom;
-          console.log(t_top);
-          console.log(t_bottom);
           this.node.children[i].getComponent("Block").BlockDown(t_top, t_bottom);
         }
         if (0 == this.block_count) {
@@ -250,8 +249,26 @@ window.__require = function e(t, n, r) {
         pause_dlg: cc.Node,
         level_dlg: cc.Node
       },
+      makeResponsive: function makeResponsive(self) {
+        var canvas = self.node.getComponent(cc.Canvas);
+        var deviceResolution = cc.view.getFrameSize();
+        var desiredRatio = canvas.designResolution.width / canvas.designResolution.height;
+        var deviceRatio = deviceResolution.width / deviceResolution.height;
+        if (deviceRatio >= desiredRatio) {
+          canvas.fitHeight = true;
+          canvas.fitWidth = false;
+        } else if (deviceRatio < desiredRatio) {
+          canvas.fitHeight = true;
+          canvas.fitWidth = true;
+        }
+      },
       onLoad: function onLoad() {
+        var _this = this;
         this.guide_dlg.active = true;
+        this.makeResponsive(this);
+        window.addEventListener("resize", function() {
+          return _this.makeResponsive(_this);
+        }, false);
       },
       onClose_guid: function onClose_guid() {
         this.guide_dlg.active = false;
@@ -279,7 +296,7 @@ window.__require = function e(t, n, r) {
       gamescore: 0,
       gamelevelscore: 0,
       gamesublevel: 1,
-      volume: 0
+      volume: true
     };
     cc._RF.pop();
   }, {} ],
@@ -378,6 +395,10 @@ window.__require = function e(t, n, r) {
         SpriteMain: cc.Node
       },
       onLoad: function onLoad() {
+        cc.view.adjustViewPort(true);
+        cc.view.setDesignResolutionSize(cc.view.getFrameSize().width, cc.view.getFrameSize().height, cc.ResolutionPolicy.NO_BORDER);
+        cc.view.resizeWithBrowserSize(true);
+        cc.view.enableAutoFullScreen(true);
         this.loadingBar.progress = 0;
         this.schedule(function() {
           this.loadingBar.progress >= 1 && (this.SpriteMain.active = true);
@@ -405,7 +426,7 @@ window.__require = function e(t, n, r) {
         over_dlg: cc.Node,
         level_dlg: cc.Node,
         complete_dlg: cc.Node,
-        finish_move: 0,
+        finish_move: 1,
         movecount: 0,
         dig: cc.Node,
         mousePos: cc.v2,
@@ -416,11 +437,45 @@ window.__require = function e(t, n, r) {
         mark_pre: cc.Prefab,
         mark_pos: cc.Node,
         Scene_node: cc.Node,
-        mark_count: cc.Object
+        mark_count: cc.Object,
+        miner: cc.Node,
+        firstmove: 0,
+        woosh_audio: {
+          default: null,
+          type: cc.AudioClip
+        },
+        tap_audio: {
+          default: null,
+          type: cc.AudioClip
+        },
+        great_audio: {
+          default: null,
+          type: cc.AudioClip
+        },
+        punch_audio: {
+          default: null,
+          type: cc.AudioClip
+        },
+        score_audio: {
+          default: null,
+          type: cc.AudioClip
+        },
+        ball_audio: {
+          default: null,
+          type: cc.AudioClip
+        },
+        expo_audio: {
+          default: null,
+          type: cc.AudioClip
+        }
       },
       start: function start() {
+        Global.volume && cc.audioEngine.play(this.ball_audio, false, 100);
         var self = this;
         this.node.on("touchend", function(event) {
+          0 == self.digmoveflg && (self.mousePos = cc.v2(event.getLocation().x, event.getLocation().y));
+        });
+        this.node.on("mousedown", function(event) {
           0 == self.digmoveflg && (self.mousePos = cc.v2(event.getLocation().x, event.getLocation().y));
         });
         this.onGameInit();
@@ -428,7 +483,6 @@ window.__require = function e(t, n, r) {
       onGameInit: function onGameInit() {
         this.dig.zIndex = 999999;
         this.cloneBlockLine(0);
-        this.onGameStart();
         Global.gamesublevel = 1;
         this.sublevel.string = Global.gamesublevel + "/" + (14 + 4 * Global.gamelevel);
         this.level.string = "LEVEL" + Global.gamelevel;
@@ -441,10 +495,10 @@ window.__require = function e(t, n, r) {
       },
       moveBlock: function moveBlock() {
         if (this.checkFinish()) return;
+        Global.volume && cc.audioEngine.play(this.punch_audio);
         this.finish_move = 1;
         this.moveTimer = 0;
         this.cloneBlockLine(-100);
-        console.log(this.node.children);
         this.movecount = 0;
         this.schedule(this.setMoveCount, .1);
       },
@@ -489,6 +543,7 @@ window.__require = function e(t, n, r) {
           var childnode = this.node.children[i];
           if (childnode.getComponent(cc.Widget).left >= 1e3) {
             Global.gameover = 1;
+            Global.volume && cc.audioEngine.play(this.woosh_audio, false, 100);
             this.unschedule(this.callback);
             this.over_dlg.active = true;
             this.over_dlg.getComponent("Over_dlg").setScore(Global.gamescore, storageManager.getHighestScore());
@@ -498,6 +553,7 @@ window.__require = function e(t, n, r) {
       onCloseOver: function onCloseOver() {
         for (var i = this.node.children.length - 2; i >= 0; i--) this.node.children[i].destroy();
         this.onGameInit();
+        this.onGameStart();
       },
       onRestartGame: function onRestartGame() {
         this.onCloseOver();
@@ -506,15 +562,28 @@ window.__require = function e(t, n, r) {
         this.mark.string = Global.gamelevelscore;
       },
       onBlockClicked: function onBlockClicked(blocktop, lineleft) {
+        var _this = this;
         if (0 == this.digmoveflg) {
+          Global.volume && cc.audioEngine.play(this.tap_audio, false, 100);
+          if (0 == this.firstmove) {
+            this.firstmove = 1;
+            this.finish_move = 0;
+            this.onGameStart();
+          }
+          var self = this;
           this.dig.x = 1065;
           this.dig.y = 385;
           this.dig.setRotation(90);
-          this.dig.active = true;
           this.dig.zIndex = 999999;
           this.digSpeed = cc.v2((this.mousePos.x - this.dig.x) / 10, (this.mousePos.y - this.dig.y) / 10);
           this.digmoveflg = 0;
-          this.schedule(this.digmove, .01);
+          self.miner.getComponent(cc.Animation).play("digup");
+          cc.tween(this.node).delay(.1).call(function() {
+            _this.dig.active = true;
+            self.schedule(self.digmove, .01);
+          }).delay(.3).call(function() {
+            self.miner.getComponent(cc.Animation).play("miner");
+          }).start();
           this.selectedx = lineleft / 100;
           this.selectedy = 5 - blocktop / .166;
         }
@@ -536,18 +605,11 @@ window.__require = function e(t, n, r) {
       },
       getRemovable: function getRemovable() {
         var column = [];
-        console.log(this.node.children);
         for (var i = this.node.children.length - 2; i >= 0; i--) {
-          if (i != this.node.children.length - 2 && !this.node.children[i].getComponent(cc.Widget).left <= this.node.children[i + 1].getComponent(cc.Widget).left + 100) {
-            console.log("aasdf");
-            for (var j = 0; j < parseInt((this.node.children[i].getComponent(cc.Widget).left - this.node.children[i + 1].getComponent(cc.Widget).left - 100) / 100); j++) column[column.length] = [];
-          }
+          if (i != this.node.children.length - 2 && !this.node.children[i].getComponent(cc.Widget).left <= this.node.children[i + 1].getComponent(cc.Widget).left + 100) for (var j = 0; j < parseInt((this.node.children[i].getComponent(cc.Widget).left - this.node.children[i + 1].getComponent(cc.Widget).left - 100) / 100); j++) column[column.length] = [];
           column[column.length] = this.node.children[i].getComponent("BlockLine").getBlockState();
         }
         var d_arr = this.computeDestroy(this.selectedx, this.selectedy, column);
-        console.log(column);
-        console.log("columns:");
-        console.log(d_arr);
         var line_arr = [];
         for (var i = 0; i < d_arr.length; i++) {
           var t_cnt = 0;
@@ -569,13 +631,12 @@ window.__require = function e(t, n, r) {
           var line_mar = this.node.children[this.node.children.length - 2 - line_arr[i]].getComponent("BlockLine").getLineMark();
           for (var j = 0; j < line_mar.length; j++) mark_arr[mark_arr.length] = line_mar[j];
         }
-        console.log("mark_arr");
-        console.log(mark_arr);
         this.showMark(mark_arr);
         for (var i = 0; i < line_arr.length; i++) this.node.children[this.node.children.length - 2 - line_arr[i]].getComponent("BlockLine").startRemoveBlocks();
       },
       showMark: function showMark(mark_arr) {
-        var _this = this;
+        var _this2 = this;
+        var cu_mark = 0;
         var total_mark = parseInt(this.mark.string);
         for (var i = 0; i < mark_arr.length; i++) if (0 != mark_arr[i].mark) {
           var marknode = cc.instantiate(this.mark_pre);
@@ -588,19 +649,29 @@ window.__require = function e(t, n, r) {
           marknode.getComponent(cc.Widget).left = mark_arr[i].left;
           marknode.getComponent(cc.Widget).isAbsoluteTop = false;
           marknode.getComponent(cc.Widget).top = mark_arr[i].top / .166 * .116 + .1;
-          console.log(marknode.getComponent(cc.Widget));
           marknode.getComponent("mark").movePos(this.mark_pos.position);
+          cu_mark += ma;
           total_mark += ma;
         }
+        if (0 == cu_mark) {
+          if (0 == Global.gamescore) return;
+          Global.gamescore -= 1;
+          this.mark.string = Global.gamescore.toString();
+          return;
+        }
+        cu_mark >= 200 && Global.volume && cc.audioEngine.play(this.great_audio, false, 100);
+        var self = this;
         this.mark_count = {
           count: 0
         };
         this.mark_count.count = parseInt(this.mark.string);
-        cc.tween(this.mark_count).delay(.3).to(.2, {
+        cc.tween(this.mark_count).delay(.3).call(function() {
+          Global.volume && cc.audioEngine.play(self.score_audio, false, 100);
+        }).to(.2, {
           count: total_mark
         }, {
           progress: function progress(start, end, current, ratio) {
-            return _this.updateMark(start, end, current, ratio);
+            return _this2.updateMark(start, end, current, ratio);
           }
         }).start();
         Global.gamescore = total_mark;
@@ -640,6 +711,8 @@ window.__require = function e(t, n, r) {
           this.unschedule(this.callback);
           this.complete_dlg.active = true;
           this.complete_dlg.getComponent(cc.Animation).play("layerout");
+          this.digmoveflg = 0;
+          Global.volume && cc.audioEngine.play(this.expo_audio, false, 100);
           return true;
         }
       },
@@ -674,7 +747,6 @@ window.__require = function e(t, n, r) {
         this.node.getComponent(cc.Label).string = "+" + mark;
       },
       movePos: function movePos(pos) {
-        console.log(pos);
         var self = this;
         cc.tween(this.node).delay(.2).to(.3, {
           position: cc.v2(pos.x, pos.y)

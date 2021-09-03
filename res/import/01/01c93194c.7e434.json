@@ -1,0 +1,120 @@
+[
+  {
+    "__type__": "cc.AnimationClip",
+    "_name": "layerout",
+    "_duration": 0.5,
+    "curveData": {
+      "props": {
+        "y": [
+          {
+            "frame": 0,
+            "value": 1376
+          },
+          {
+            "frame": 0.3333333333333333,
+            "value": 12
+          },
+          {
+            "frame": 0.5,
+            "value": 43
+          }
+        ]
+      }
+    }
+  },
+  {
+    "__type__": "cc.AnimationClip",
+    "_name": "shake",
+    "_duration": 0.25,
+    "sample": 100,
+    "curveData": {
+      "props": {
+        "y": [
+          {
+            "frame": 0,
+            "value": 755
+          },
+          {
+            "frame": 0.05,
+            "value": 765
+          },
+          {
+            "frame": 0.1,
+            "value": 755
+          },
+          {
+            "frame": 0.15,
+            "value": 765
+          },
+          {
+            "frame": 0.2,
+            "value": 755
+          },
+          {
+            "frame": 0.25,
+            "value": 760
+          }
+        ]
+      }
+    }
+  },
+  {
+    "__type__": "cc.AnimationClip",
+    "_name": "layerin",
+    "_duration": 0.5,
+    "curveData": {
+      "props": {
+        "y": [
+          {
+            "frame": 0,
+            "value": 43
+          },
+          {
+            "frame": 0.16666666666666666,
+            "value": 12
+          },
+          {
+            "frame": 0.5,
+            "value": 1384
+          }
+        ]
+      }
+    }
+  },
+  {
+    "__type__": "cc.AnimationClip",
+    "_name": "floor",
+    "_duration": 0.25,
+    "sample": 100,
+    "curveData": {
+      "props": {
+        "y": [
+          {
+            "frame": 0,
+            "value": 5
+          },
+          {
+            "frame": 0.05,
+            "value": 15
+          },
+          {
+            "frame": 0.1,
+            "value": 5
+          },
+          {
+            "frame": 0.15,
+            "value": 15
+          },
+          {
+            "frame": 0.2,
+            "value": 5
+          },
+          {
+            "frame": 0.25,
+            "value": 15
+          }
+        ]
+      }
+    }
+  }
+]
