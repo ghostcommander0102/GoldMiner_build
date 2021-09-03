@@ -338,7 +338,7 @@ window.__require = function e(t, n, r) {
         level: cc.Label
       },
       start: function start() {
-        level.string = "Level " + (Global.gamelevel + 1);
+        this.level.string = "Level " + (Global.gamelevel + 1);
       },
       onHome: function onHome() {
         cc.director.loadScene("Splash");
@@ -573,7 +573,7 @@ window.__require = function e(t, n, r) {
           var self = this;
           this.dig.x = 1065;
           this.dig.y = 385;
-          this.dig.setRotation(90);
+          this.dig.angle = -90;
           this.dig.zIndex = 999999;
           this.digSpeed = cc.v2((this.mousePos.x - this.dig.x) / 10, (this.mousePos.y - this.dig.y) / 10);
           this.digmoveflg = 0;
@@ -592,13 +592,13 @@ window.__require = function e(t, n, r) {
         this.digmoveflg++;
         this.dig.x += this.digSpeed.x;
         this.dig.y += this.digSpeed.y;
-        this.dig.setRotation(Math.abs(this.dig.rotation) - 10);
+        this.dig.angle = -(Math.abs(-this.dig.angle) - 10);
         if (10 == this.digmoveflg) {
           cc.tween(this).to(.5, {
             digmoveflg: 0
           }).start();
           this.unschedule(this.digmove);
-          this.dig.setRotation(90);
+          this.dig.angle = -90;
           this.dig.active = false;
           this.getRemovable();
         }
