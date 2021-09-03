@@ -1,0 +1,289 @@
+.fg-spinner {
+    display: none;
+    visibility: hidden;
+    position: fixed;
+    top: 20%;
+    margin-left: -37px;
+    text-align: center;
+    z-index: 999000;
+    opacity: 0;
+    transition: opacity .5s
+}
+
+.fg-spinner [class*="fg-dot"] {
+    position: absolute;
+    height: 60px;
+    width: 60px;
+    opacity: 1
+}
+
+.fg-spinner [class*="fg-dot"]:before {
+    content: "";
+    height: 15px;
+    width: 7px;
+    background-color: #fff;
+    position: absolute;
+    top: 5px;
+    left: 0;
+    right: 0;
+    margin: 0 auto;
+    border-radius: 10px;
+    overflow: hidden
+}
+
+.fg-spinner .fg-dot1 {
+    -webkit-animation: fg-fade-spinner 1.2s infinite linear;
+    animation: fg-fade-spinner 1.2s infinite linear
+}
+
+.fg-spinner .fg-dot2 {
+    transform: rotate(51deg);
+    -webkit-animation: fg-fade-spinner 1.2s infinite linear .2s;
+    animation: fg-fade-spinner 1.2s infinite linear .2s
+}
+
+.fg-spinner .fg-dot3 {
+    transform: rotate(102deg);
+    -webkit-animation: fg-fade-spinner 1.2s infinite linear .4s;
+    animation: fg-fade-spinner 1.2s infinite linear .4s
+}
+
+.fg-spinner .fg-dot4 {
+    transform: rotate(153deg);
+    -webkit-animation: fg-fade-spinner 1.2s infinite linear .6s;
+    animation: fg-fade-spinner 1.2s infinite linear .6s
+}
+
+.fg-spinner .fg-dot5 {
+    transform: rotate(204deg);
+    -webkit-animation: fg-fade-spinner 1.2s infinite linear .8s;
+    animation: fg-fade-spinner 1.2s infinite linear .8s
+}
+
+.fg-spinner .fg-dot6 {
+    transform: rotate(255deg);
+    -webkit-animation: fg-fade-spinner 1.2s infinite linear 1s;
+    animation: fg-fade-spinner 1.2s infinite linear 1s
+}
+
+.fg-spinner .fg-dot7 {
+    transform: rotate(307deg);
+    -webkit-animation: fg-fade-spinner 1.2s infinite linear 1.2s;
+    animation: fg-fade-spinner 1.2s infinite linear 1.2s
+}
+
+#cssload-pgloading:after {
+    content: "";
+    z-index: -1;
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0
+}
+
+#cssload-pgloading .cssload-loadingwrap {
+    position: absolute;
+    top: 45%;
+    bottom: 45%;
+    left: 25%;
+    right: 25%
+}
+
+#cssload-pgloading .cssload-bokeh {
+    font-size: 85px;
+    width: 1em;
+    height: 1em;
+    position: relative;
+    margin: 0 auto;
+    list-style: none;
+    padding: 0;
+    border-radius: 50%;
+    -o-border-radius: 50%;
+    -ms-border-radius: 50%;
+    -webkit-border-radius: 50%;
+    -moz-border-radius: 50%
+}
+
+#cssload-pgloading .cssload-bokeh li {
+    position: absolute;
+    width: .2em;
+    height: .2em;
+    border-radius: 50%;
+    -o-border-radius: 50%;
+    -ms-border-radius: 50%;
+    -webkit-border-radius: 50%;
+    -moz-border-radius: 50%
+}
+
+#cssload-pgloading .cssload-bokeh li:nth-child(1) {
+    left: 50%;
+    top: 0;
+    margin: 0 0 0 -.1em;
+    background: #0092c3;
+    transform-origin: 50% 250%;
+    -o-transform-origin: 50% 250%;
+    -ms-transform-origin: 50% 250%;
+    -webkit-transform-origin: 50% 250%;
+    -moz-transform-origin: 50% 250%;
+    animation: cssload-rota .6765s linear infinite,cssload-opa 2.2035s ease-in-out infinite alternate;
+    -o-animation: cssload-rota .6765s linear infinite,cssload-opa 2.2035s ease-in-out infinite alternate;
+    -ms-animation: cssload-rota .6765s linear infinite,cssload-opa 2.2035s ease-in-out infinite alternate;
+    -webkit-animation: cssload-rota .6765s linear infinite,cssload-opa 2.2035s ease-in-out infinite alternate;
+    -moz-animation: cssload-rota .6765s linear infinite,cssload-opa 2.2035s ease-in-out infinite alternate;
+}
+
+#cssload-pgloading .cssload-bokeh li:nth-child(2) {
+    top: 50%;
+    right: 0;
+    margin: -.1em 0 0;
+    background: #f08119;
+    transform-origin: -150% 50%;
+    -o-transform-origin: -150% 50%;
+    -ms-transform-origin: -150% 50%;
+    -webkit-transform-origin: -150% 50%;
+    -moz-transform-origin: -150% 50%;
+    animation: cssload-rota 1.113s linear infinite,cssload-opa 2.5745s ease-in-out infinite alternate;
+    -o-animation: cssload-rota 1.113s linear infinite,cssload-opa 2.5745s ease-in-out infinite alternate;
+    -ms-animation: cssload-rota 1.113s linear infinite,cssload-opa 2.5745s ease-in-out infinite alternate;
+    -webkit-animation: cssload-rota 1.113s linear infinite,cssload-opa 2.5745s ease-in-out infinite alternate;
+    -moz-animation: cssload-rota 1.113s linear infinite,cssload-opa 2.5745s ease-in-out infinite alternate
+}
+
+#cssload-pgloading .cssload-bokeh li:nth-child(3) {
+    left: 50%;
+    bottom: 0;
+    margin: 0 0 0 -.1em;
+    background: #333;
+    transform-origin: 50% -150%;
+    -o-transform-origin: 50% -150%;
+    -ms-transform-origin: 50% -150%;
+    -webkit-transform-origin: 50% -150%;
+    -moz-transform-origin: 50% -150%;
+    animation: cssload-rota .8725s linear infinite,cssload-opa 3.076s ease-in-out infinite alternate;
+    -o-animation: cssload-rota .8725s linear infinite,cssload-opa 3.076s ease-in-out infinite alternate;
+    -ms-animation: cssload-rota .8725s linear infinite,cssload-opa 3.076s ease-in-out infinite alternate;
+    -webkit-animation: cssload-rota .8725s linear infinite,cssload-opa 3.076s ease-in-out infinite alternate;
+    -moz-animation: cssload-rota .8725s linear infinite,cssload-opa 3.076s ease-in-out infinite alternate
+}
+
+#cssload-pgloading .cssload-bokeh li:nth-child(4) {
+    top: 50%;
+    left: 0;
+    margin: -.1em 0 0;
+    background: #fff;
+    transform-origin: 250% 50%;
+    -o-transform-origin: 250% 50%;
+    -ms-transform-origin: 250% 50%;
+    -webkit-transform-origin: 250% 50%;
+    -moz-transform-origin: 250% 50%;
+    animation: cssload-rota 1.036s linear infinite,cssload-opa 3.1525s ease-in-out infinite alternate;
+    -o-animation: cssload-rota 1.036s linear infinite,cssload-opa 3.1525s ease-in-out infinite alternate;
+    -ms-animation: cssload-rota 1.036s linear infinite,cssload-opa 3.1525s ease-in-out infinite alternate;
+    -webkit-animation: cssload-rota 1.036s linear infinite,cssload-opa 3.1525s ease-in-out infinite alternate;
+    -moz-animation: cssload-rota 1.036s linear infinite,cssload-opa 3.1525s ease-in-out infinite alternate
+}
+
+@keyframes cssload-rota {
+    to {
+        transform: rotate(360deg)
+    }
+}
+
+@-webkit-keyframes cssload-rota {
+    to {
+        -webkit-transform: rotate(360deg)
+    }
+}
+
+@keyframes cssload-opa {
+    12.0% {
+        opacity: .8
+    }
+
+    19.5% {
+        opacity: .88
+    }
+
+    37.2% {
+        opacity: .64
+    }
+
+    40.5% {
+        opacity: .52
+    }
+
+    52.7% {
+        opacity: .69
+    }
+
+    60.2% {
+        opacity: .6
+    }
+
+    66.6% {
+        opacity: .52
+    }
+
+    70.0% {
+        opacity: .63
+    }
+
+    79.9% {
+        opacity: .6
+    }
+
+    84.2% {
+        opacity: .75
+    }
+
+    91.0% {
+        opacity: .87
+    }
+}
+
+@-webkit-keyframes cssload-opa {
+    12.0% {
+        opacity: .8
+    }
+
+    19.5% {
+        opacity: .88
+    }
+
+    37.2% {
+        opacity: .64
+    }
+
+    40.5% {
+        opacity: .52
+    }
+
+    52.7% {
+        opacity: .69
+    }
+
+    60.2% {
+        opacity: .6
+    }
+
+    66.6% {
+        opacity: .52
+    }
+
+    70.0% {
+        opacity: .63
+    }
+
+    79.9% {
+        opacity: .6
+    }
+
+    84.2% {
+        opacity: .75
+    }
+
+    91.0% {
+        opacity: .87
+    }
+}
