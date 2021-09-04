@@ -355,7 +355,7 @@
       7002: "Sorry can not load '%s' because it is not placed in the 'resources' folder.",
       7003: "Failed to init builtin asset's raw path.",
       7100: "%s already defined in Enum.",
-      7101: "Sorry, 'cc.Enum' not available on this platform, please report this error here: https://github.com/cocos-creator/engine/issues/new",
+      7101: "Sorry, 'cc.Enum' not available on this platform, please report this error",
       7200: "Method 'initWithTMXFile' is no effect now, please set property 'tmxAsset' instead.",
       7201: "Method 'initWithXML' is no effect now, please set property 'tmxAsset' instead.",
       7202: "Add component TiledLayer into node failed.",
@@ -6958,7 +6958,7 @@
     "use strict";
     var utils = require("./platform/utils");
     var debugInfos = require("../../DebugInfos") || {};
-    var ERROR_MAP_URL = "https://github.com/cocos-creator/engine/blob/master/EngineErrorMap.md";
+    var ERROR_MAP_URL = "";
     var logList;
     cc.log = cc.warn = cc.error = cc.assert = console.log.bind ? console.log.bind(console) : console.log;
     var resetDebugSetting = function resetDebugSetting(mode) {
@@ -7035,7 +7035,7 @@
       if (mode === DebugMode.INFO) {
         false, false;
         console.log.bind ? cc.log = console.log.bind(console) : cc.log = function() {
-          return console.log.apply(console, arguments);
+          // return console.log.apply(console, arguments);
         };
       }
     };
@@ -7602,7 +7602,7 @@
         this._initEngine();
         this._setAnimFrame();
         cc.AssetLibrary._loadBuiltins((function() {
-          console.log("Cocos Creator v" + cc.ENGINE_VERSION);
+          
           _this._prepared = true;
           _this._runMainLoop();
           _this.emit(_this.EVENT_GAME_INITED);
