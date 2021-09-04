@@ -24705,7 +24705,7 @@
         }
         if (!unpackerData) {
           true;
-          console.log("Create unpacker %s for %s", packUuid, uuid);
+          
           unpackerData = globalUnpackers[packUuid] = new UnpackerData();
           unpackerData.state = PackState.Downloading;
         }
@@ -34842,7 +34842,7 @@
             letterDef = shareLabelInfo.fontAtlas.getLetterDefinitionForChar(character, shareLabelInfo);
             if (!letterDef) {
               this._recordPlaceholderInfo(letterIndex, character);
-              console.log("Can't find letter definition in texture atlas " + _fntConfig.atlasName + " for letter:" + character);
+              
               continue;
             }
             var letterX = nextLetterX + letterDef.offsetX * _bmfontScale - shareLabelInfo.margin;
@@ -41654,9 +41654,7 @@
         }
       }
       var totalNum = spaceNum + usingNum;
-      console.log("unitID:", this.unitID, "spaceNum:", spaceNum, "calc using num:", usingNum, "store using num:", this._data[1], "calc total num:", totalNum, "actually total num:", this._contentNum);
-      console.log("free info:", freeStr);
-      console.log("using info:", usingStr);
+      
       usingNum != this._data[1] && cc.error("using num error", "calc using num:", usingNum, "store using num:", this._data[1]);
       spaceNum + usingNum != this._contentNum && cc.error("total num error", "calc total num:", totalNum, "actually total num:", this._contentNum);
     };
@@ -48175,7 +48173,7 @@
         var BOM = this.getUint16(0);
         if (18761 === BOM) this.littleEndian = true; else {
           if (19789 !== BOM) {
-            console.log(BOM);
+            
             throw TypeError(debug.getError(6019));
           }
           this.littleEndian = false;
@@ -76713,7 +76711,7 @@
         DebugUtils.logBones = function(skeleton) {
           for (var i = 0; i < skeleton.bones.length; i++) {
             var bone = skeleton.bones[i];
-            console.log(bone.data.name + ", " + bone.a + ", " + bone.b + ", " + bone.c + ", " + bone.d + ", " + bone.worldX + ", " + bone.worldY);
+            
           }
         };
         return DebugUtils;
@@ -93680,7 +93678,7 @@
       console.timeEnd = function(label) {
         var startTime = _timerTable[label];
         var duration = Timer.now() - startTime;
-        console.log(label + ": " + duration + "ms");
+        
       };
     }
   }), {} ],

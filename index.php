@@ -4,7 +4,7 @@
 <head>
   <meta charset="utf-8">
 
-  <title>Cocos Creator | GoldMiner</title>
+  <title>GoldMiner</title>
 
   <meta name="viewport"
     content="width=device-width,user-scalable=no,initial-scale=1, minimum-scale=1,maximum-scale=1" />
