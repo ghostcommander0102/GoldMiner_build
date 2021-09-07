@@ -5313,20 +5313,6 @@
       "paths": {
         "arm3": {
           "props": {
-            "rotation": [
-              {
-                "frame": 0,
-                "value": -17
-              },
-              {
-                "frame": 0.5,
-                "value": 5
-              },
-              {
-                "frame": 1,
-                "value": -17
-              }
-            ],
             "y": [
               {
                 "frame": 0,
@@ -5340,25 +5326,25 @@
                 "frame": 1,
                 "value": 87
               }
+            ],
+            "angle": [
+              {
+                "frame": 0,
+                "value": 17
+              },
+              {
+                "frame": 0.5,
+                "value": 5
+              },
+              {
+                "frame": 1,
+                "value": 17
+              }
             ]
           }
         },
         "arm1": {
           "props": {
-            "rotation": [
-              {
-                "frame": 0,
-                "value": 12
-              },
-              {
-                "frame": 0.5,
-                "value": 0
-              },
-              {
-                "frame": 1,
-                "value": 12
-              }
-            ],
             "y": [
               {
                 "frame": 0,
@@ -5377,6 +5363,20 @@
               {
                 "frame": 0,
                 "value": true
+              }
+            ],
+            "angle": [
+              {
+                "frame": 0,
+                "value": -12
+              },
+              {
+                "frame": 0.5,
+                "value": 0
+              },
+              {
+                "frame": 1,
+                "value": -12
               }
             ]
           }

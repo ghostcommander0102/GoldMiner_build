@@ -10,7 +10,6 @@ window.__require = function e(t, n, r) {
           if (i) return i(b, !0);
           throw new Error("Cannot find module '" + o + "'");
         }
-        o = b;
       }
       var f = n[o] = {
         exports: {}

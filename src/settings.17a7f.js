@@ -180,12 +180,12 @@ window._CCSettings = {
                 "effects/builtin-2d-sprite.effect",
                 "cc.EffectAsset"
             ],
-            "2afAA24LNP4YmYiaVLiivs": [
-                "effects/builtin-3d-trail.effect",
-                "cc.EffectAsset"
-            ],
             c0BAyVxX9JzZy8EjFrc9DU: [
                 "effects/builtin-clear-stencil.effect",
+                "cc.EffectAsset"
+            ],
+            "796vrvt+9F2Zw/WR3INvx6": [
+                "effects/builtin-unlit-transparent.effect",
                 "cc.EffectAsset"
             ],
             "6dkeWRTOBGXICfYQ7JUBnG": [
@@ -206,10 +206,6 @@ window._CCSettings = {
             ],
             "ecpdLyjvZBwrvm+cedCcQy": [
                 "materials/builtin-2d-sprite.mtl",
-                "cc.Material"
-            ],
-            "46bU+b5fROqIXVPG6aZWWK": [
-                "materials/builtin-3d-trail.mtl",
                 "cc.Material"
             ],
             cffgu4qBxEqa150o1DmRAy: [
@@ -323,10 +319,6 @@ window._CCSettings = {
             "14TDKXr2NJ6LjvHPops74o",
             "3ae7efMv1CLq2ilvUY/tQi"
         ],
-        "0a5cba09d": [
-            "2afAA24LNP4YmYiaVLiivs",
-            "46bU+b5fROqIXVPG6aZWWK"
-        ],
         "0d669730c": [
             "c0BAyVxX9JzZy8EjFrc9DU",
             "cffgu4qBxEqa150o1DmRAy"
@@ -385,23 +377,21 @@ window._CCSettings = {
             "01c93194c",
             "7e434",
             "03c12252e",
-            "ccbae",
+            "74c29",
             "05eca43e6",
-            "25deb",
+            "57597",
             "079499991",
-            "6ed06",
+            "91391",
             "07ce7530a",
-            "97339",
-            "0a5cba09d",
-            "4c931",
+            "94e4c",
             "0d669730c",
-            "661c4",
+            "6d9e9",
             "0e4bc3b03",
-            "92de1",
+            "99864",
             "0e93b9556",
             "75161",
             "28dPjdQWxEQIG3VVl1Qm6T",
-            "d3cc0",
+            "c297d",
             "2aulXgPmhPP6KqC6+BJaaF",
             "60d14",
             "33RxM/lc9BtoaCq87exjkC",
@@ -413,13 +403,15 @@ window._CCSettings = {
             "66goeJcNpMzrCcjuN79CCk",
             "d9871",
             "6fgBCSDDdPMInvyNlggls2",
-            "446f8",
+            "58d0e",
+            "796vrvt+9F2Zw/WR3INvx6",
+            "16e74",
             "91m/+PLFxGqYlGYL8nPgzc",
             "bbe64",
             "e9Lqo0espHzI1nCUXx+Vsu",
             "bd9d8",
             "ecpdLyjvZBwrvm+cedCcQy",
-            "f3308"
+            "fa7d0"
         ],
         "raw-assets": [
             "00WboRwUZF5Z9OWhhRH0lb",
